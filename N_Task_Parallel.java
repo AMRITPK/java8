@@ -1,4 +1,3 @@
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.Callable;
@@ -52,19 +51,47 @@ public class N_Task_Parallel {
 		exService.shutdown();
 	}
 	
+	
 	public static void main(String args[]) {
 		try {
-			pingAndReportEachWhenKnown();
-		} catch (InterruptedException e) {
+			//pingAndReportEachWhenKnown();
+		
+				pingAndReportAllAtEnd ();
+			
+			
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
+	private static void pingAndReportAllAtEnd () throws Exception {
+		// TODO Auto-generated method stub
+		Callable c1= ()->{
+			log("inside c 1");
+			TimeUnit.SECONDS.sleep(10);
+			log("done c 1");
+			return "from c1";
+		};
+		Callable c2= ()->{
+			log("inside c 2");
+			TimeUnit.SECONDS.sleep(5);
+			log("done c 2");
+			return "from c2";
+		};
+		
+		 ExecutorService exs= Executors.newFixedThreadPool(10);
+		 Future r1 = exs.submit(c1);
+		 Future r2 = exs.submit(c2);
+		 
+		log( r1.get().toString());
+		log( r2.get().toString());
+		exs.shutdown();
+	}
 }
 
-
 /*
----result----
+---result--parallel--
 
 2020-02-29 at 22:13:58 IST
 c1 started
@@ -78,6 +105,21 @@ returning from c2
 f2.get()
 2020-02-29 at 22:14:08 IST
 returning from c1
+
+
+-----reseult----all after done----
+2020-02-29 at 22:28:33 IST
+inside c 2
+2020-02-29 at 22:28:33 IST
+inside c 1
+2020-02-29 at 22:28:38 IST
+done c 2
+2020-02-29 at 22:28:43 IST
+done c 1
+2020-02-29 at 22:28:43 IST
+from c1
+2020-02-29 at 22:28:43 IST
+from c2
 
 
 */
