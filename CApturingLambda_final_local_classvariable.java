@@ -5,8 +5,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class CApturingLambda_final_local_classvariable {
-	
-public static void tester() throws InterruptedException, ExecutionException {
+	String calssvar="asdf";
+public  void tester() throws InterruptedException, ExecutionException {
 	String a="hello";
 	
 	a="asdf";
@@ -14,14 +14,18 @@ public static void tester() throws InterruptedException, ExecutionException {
 	//why -. because threads shoudld not change the variable in the stack- local var
 	
 	ExecutorService exserv = Executors.newFixedThreadPool(10);
-	//Future<String> f1 = exserv.submit(()->a+"done");
+	Future<String> f1 = exserv.submit(()->{
+		calssvar="sdfgsdfg";
+		//class variables can be changed as they are in the heap and per thread
+		return calssvar+"done";
+	});
 	
-	//System.out.println(f1.get());
+	System.out.println(f1.get());
 	exserv.shutdown();
 }
 	
 public static void main(String args[]) throws InterruptedException, ExecutionException {
-	tester();
+	new CApturingLambda_final_local_classvariable().tester();
 
 	
 }
