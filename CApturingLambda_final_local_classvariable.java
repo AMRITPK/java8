@@ -16,7 +16,7 @@ public  void tester() throws InterruptedException, ExecutionException {
 	ExecutorService exserv = Executors.newFixedThreadPool(10);
 	Future<String> f1 = exserv.submit(()->{
 		calssvar="sdfgsdfg";
-		//class variables can be changed as they are in the heap and per thread
+		//class variables can be changed -BUT MUTATING CLASS OR INSTANCE VARIABLE CAN CREATE CINCURRENCY ISSUES
 		return calssvar+"done";
 	});
 	
