@@ -12,9 +12,10 @@ class C2 implements Callable{
 	private int number;
 	@Override
 	public Object call() throws Exception {
+		System.out.println("called c2");
 		// TODO Auto-generated method stub
 		TimeUnit.SECONDS.sleep(10);
-		System.out.println(number+"=number");
+		System.out.println(number+"=retuned from c2");
 		return 2*number;
 	}
 	C2(int number){
@@ -33,50 +34,27 @@ public class Callable_Executor {
 		
 		try {
 			
-			Callable c1= (()-> {System.out.println("asdff"); return "str to ret";});
+			Callable c1= (()-> {System.out.println("called c1"); return "return from c1";});
 			
 			
 			
 			ExecutorService service = Executors.newFixedThreadPool(10);
-			 Collection<Callable<String>> tasks = new ArrayList<>();
 			
 		
-			 
-			
-			tasks.add(c2);
-			tasks.add(c1);
+			Future b = service.submit(c1);
 			
 			
-			java.util.List<Future<String>> alist = service.invokeAll(tasks);
+			Future a = service.submit(c2);
+
 			
-			
-			alist.forEach((item)->{
-				try {
-					Future f=item;
-					System.out.println(f.isDone()+"-"+f.get());
-					
-					
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			});
-			
-			
-		
-			//Future b = service.submit(c1);
-			//Future a = service.submit(c2);
-			//boolean retval = service.awaitTermination(2, TimeUnit.SECONDS);
-			//System.out.println(retval);
-			//System.out.println(a.get().toString());
-			//service.shutdown();
+			boolean retval = service.awaitTermination(2, TimeUnit.SECONDS);
+			System.out.println(retval);
+			System.out.println(a.get().toString());
+			service.shutdown();
 			
 		
 			//System.out.println(b.get().toString());
-			service.shutdown();
+			//service.shutdown();
 			
 			 
 			

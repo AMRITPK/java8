@@ -89,37 +89,3 @@ public class N_Task_Parallel {
 		exs.shutdown();
 	}
 }
-
-/*
----result--parallel--
-
-2020-02-29 at 22:13:58 IST
-c1 started
-2020-02-29 at 22:13:58 IST
-c2 started
-2020-02-29 at 22:14:03 IST
-f1.get()
-2020-02-29 at 22:14:03 IST
-returning from c2
-2020-02-29 at 22:14:08 IST
-f2.get()
-2020-02-29 at 22:14:08 IST
-returning from c1
-
-
------reseult----all after done----
-2020-02-29 at 22:28:33 IST
-inside c 2
-2020-02-29 at 22:28:33 IST
-inside c 1
-2020-02-29 at 22:28:38 IST
-done c 2
-2020-02-29 at 22:28:43 IST
-done c 1
-2020-02-29 at 22:28:43 IST
-from c1
-2020-02-29 at 22:28:43 IST
-from c2
-
-
-*/
